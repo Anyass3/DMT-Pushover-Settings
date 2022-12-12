@@ -9,7 +9,7 @@
 	const snackbar = store.g('snackbar');
 	const connector = store.g('connector');
 
-	let selected: { id: any; token: string };
+	let selected: { id: string; token: string };
 
 	let app = { id: '', token: '' };
 
