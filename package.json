@@ -52,7 +52,7 @@
 		"./connectome-stores": "./_dmt_deps/connectome-stores/node/index.js"
 	},
 	"dependencies": {
-		"connectome": "link:../connectome",
+		"connectome": "^0.2.6",
 		"stores-x": "^0.0.872"
 	}
 }
