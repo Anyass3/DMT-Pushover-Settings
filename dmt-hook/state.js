@@ -26,15 +26,7 @@ export const makeApi = () => {
 			const pushover = api.getPushOverApps();
 			log.red(pushover)
 			log.gray({app,update})
-			if (!pushover.app.find(({ id }) => app.id == id)) {
-				pushover.app.push(app);
-				const def = json2def({ pushover });
-
-				message = `✨ Added a new pushover app: ${app.id}`;
-				api.notify(message);
-				// log.green(def);
-				fs.writeFileSync(pushoverDefPath, def);
-			} else if (update) {
+			 if (update) {
 				pushover.app.map((a) => {
 					if (a.id === update.app.id) {
 						a.id = app.id;
@@ -47,9 +39,17 @@ export const makeApi = () => {
 					}
 					return a;
 				});
-				
+
 				const def = json2def({ pushover });
 
+				fs.writeFileSync(pushoverDefPath, def);
+			} else if (!pushover.app.find(({ id }) => app.id == id)) {
+				pushover.app.push(app);
+				const def = json2def({ pushover });
+
+				message = `✨ Added a new pushover app: ${app.id}`;
+				api.notify(message);
+				// log.green(def);
 				fs.writeFileSync(pushoverDefPath, def);
 			}
 			return message;
