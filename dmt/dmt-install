@@ -1,0 +1,91 @@
+#!/bin/bash
+
+SOURCE="$(cd "$(dirname "$1")"; pwd)/" # project base directory
+ARG=$1
+
+cd $SOURCE
+
+# variables
+app_base="$(node dmt/variables/app_base.cjs)"
+build="$(node dmt/variables/build.cjs)"
+hook="$(node dmt/variables/hook.cjs)"
+
+source ~/.dmt/etc/.bash_aliases_bundle # dirsync
+
+# sync
+if [ $app_base = my-app-base ]; then
+
+printf "${RED}Please open setting.json and change app_base to yours! "
+echo ''
+echo 'Not Successful'
+
+else
+    # dmt apps dir
+    DMT_DEVICE_APPS="$HOME/.dmt-here/apps" # dmt device apps, don't get synced to other devices like dmt system (~/.dmt/apps) and dmt user apps (~/.dmt/user/apps) do
+
+    # DMT-APPS sync
+    SOURCE_HOOK="${SOURCE}${hook}"
+    SOURCE_PUBLIC="${SOURCE}${build}"
+
+    if [ "$ARG" != "backend" ]; then
+    # *** Setup Frontend ***
+      # before build scripts
+      node dmt/editBase.cjs
+
+      pnpm i
+
+      pnpm build
+
+      # after build scripts
+      node dmt/resetBase.cjs
+      # sync frontend
+      if [ -d $SOURCE_PUBLIC ]; then
+        mkdir -p "$DMT_DEVICE_APPS/$app_base/gui"; cd $_
+        dirsync "$SOURCE_PUBLIC" .
+        
+        printf "${GREEN}✓ Updated ${DMT_DEVICE_APPS}/${app_base}/gui${NC} => frontend\n"
+      fi
+    fi
+
+
+
+    if [ "$ARG" != "frontend" ]; then
+    # *** Setup Backend ***
+      
+      cd $SOURCE # make sure we are in the project base directory
+
+
+      pnpm i # install deps
+      
+      # sync backend
+      if [ -d $SOURCE_HOOK ]; then
+        mkdir -p "$DMT_DEVICE_APPS/$app_base"; cd $_
+        dirsync --exclude gui --exclude node_modules --exclude package-lock.json --exclude pnpm-lock.json "$SOURCE_HOOK" .
+
+        printf "\n${GREEN}Installing app backend deps ...${NC}\n"
+
+        cp "$SOURCE/dmt/variables/package.json" .
+
+        if [ ! -L _dmt_deps ]; then
+          ln -s ../_dmt_deps .
+        fi
+
+        pnpm i
+
+        # printf "\n${GREEN}Restarting ${CYAN}dmt-proc${NC} ...${NC}\n"
+        # dmt restart
+        
+        printf "${GREEN}✓ Updated ${DMT_DEVICE_APPS}/${app_base}${NC} => backend\n"
+      fi
+    fi
+
+    cd $SOURCE
+
+    # # if we wanted to sync the changes to server then uncomment below and set USERNAME & SERVER_IP variables
+    # echo 'rsync server'
+    # USERNAME=""
+    # SERVER_IP=""
+    # rsync -azP "$DMT_DEVICE_APPS/apps/$app_base/gui/" "$USERNAME@$SERVER_IP:/home/$USERNAME/.dmt/user/apps/$app_base/gui/"
+    # rsync -azP "$DMT_DEVICE_APPS/engine/$app_base/" "$USERNAME@$SERVER_IP:/home/$USERNAME/.dmt/user/engine/$app_base/"
+
+fi

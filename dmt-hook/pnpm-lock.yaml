@@ -1,0 +1,15 @@
+lockfileVersion: 5.4
+
+specifiers:
+  dmt-defjson: github:Anyass3/dmt-defJson
+
+dependencies:
+  dmt-defjson: github.com/Anyass3/dmt-defJson/90ef846332c73263b1028a717790f4bee323fec8
+
+packages:
+
+  github.com/Anyass3/dmt-defJson/90ef846332c73263b1028a717790f4bee323fec8:
+    resolution: {tarball: https://codeload.github.com/Anyass3/dmt-defJson/tar.gz/90ef846332c73263b1028a717790f4bee323fec8}
+    name: dmt-defjson
+    version: 0.0.1
+    dev: false

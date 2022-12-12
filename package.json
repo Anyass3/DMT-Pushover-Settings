@@ -1,0 +1,58 @@
+{
+	"name": "dmt-pushover-settings",
+	"version": "0.0.1",
+	"scripts": {
+		"dev": "vite dev",
+		"build": "vite build",
+		"preview": "vite preview",
+		"test": "playwright test",
+		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
+		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
+		"test:unit": "vitest",
+		"lint": "prettier --plugin-search-dir . --check . && eslint .",
+		"format": "prettier --plugin-search-dir . --write .",
+		"dmt-install": "./dmt/dmt-install",
+		"dmt_deps": "mkdir -p _dmt_deps && ln ~/.dmt/core/node/connectome/stores -s _dmt_deps/connectome-stores && ln ~/.dmt/core/node/connectome/dist -s _dmt_deps/connectome && ln ~/.dmt/core/node/common -s _dmt_deps/common && ln ~/.dmt/core/node/notify -s _dmt_deps/notify",
+		"smui-theme": "smui-theme compile src/lib/smui-dark.css -i src/theme/dark"
+	},
+	"devDependencies": {
+		"@fontsource/fira-mono": "^4.5.10",
+		"@neoconfetti/svelte": "^1.0.0",
+		"@playwright/test": "^1.28.1",
+		"@smui/button": "^7.0.0-beta.0",
+		"@smui/textfield": "^7.0.0-beta.0",
+		"@sveltejs/adapter-static": "next",
+		"@sveltejs/kit": "next",
+		"@types/cookie": "^0.5.1",
+		"@typescript-eslint/eslint-plugin": "^5.45.0",
+		"@typescript-eslint/parser": "^5.45.0",
+		"autoprefixer": "10.4.7",
+		"eslint": "^8.28.0",
+		"eslint-config-prettier": "^8.5.0",
+		"eslint-plugin-svelte3": "^4.0.0",
+		"postcss": "8.4.14",
+		"postcss-load-config": "^3.1.0",
+		"prettier": "^2.8.0",
+		"prettier-plugin-svelte": "^2.8.1",
+		"sass": "^1.39.2",
+		"smui-theme": "^7.0.0-beta.0",
+		"svelte": "^3.54.0",
+		"svelte-check": "^2.9.2",
+		"svelte-feather-icons": "^4.0.0",
+		"tailwindcss": "3.1.6",
+		"tslib": "^2.4.1",
+		"typescript": "^4.9.3",
+		"vite": "^4.0.0",
+		"vitest": "^0.25.3"
+	},
+	"type": "module",
+	"exports": {
+		"./common": "./_dmt_deps/common/index.js",
+		"./notify": "./_dmt_deps/notify/index.js",
+		"./connectome-stores": "./_dmt_deps/connectome-stores/node/index.js"
+	},
+	"dependencies": {
+		"connectome": "link:../connectome",
+		"stores-x": "^0.0.872"
+	}
+}

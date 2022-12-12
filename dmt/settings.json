@@ -1,0 +1,6 @@
+{
+	"app_base": "pushover-settings",
+	"manifest": "app.webmanifest",
+	"build": "build",
+	"hook": "dmt-hook"
+}
