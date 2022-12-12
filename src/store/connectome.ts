@@ -32,7 +32,7 @@ export default {
 			connector.on('pushover', (pushover) => {
 				dispatch('pushover', pushover);
 			});
-			
+
 			connector.on('notify-success', (msg) => {
 				dispatch('snackbar', msg);
 			});

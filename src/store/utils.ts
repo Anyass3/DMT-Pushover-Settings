@@ -21,13 +21,13 @@ export function createSnackStore() {
 
 	return {
 		subscribe,
-		show: (value: string, {color='success', timeout = 8000}={}) =>
-		// color : "success"|'danger'
+		show: (value: string, { color = 'success', timeout = 8000 } = {}) =>
+			// color : "success"|'danger'
 			update(() => {
 				setTimeout(() => set(null), timeout);
-				return {message: value, color };
+				return { message: value, color };
 			}),
-		close: ()=>set(null)
+		close: () => set(null)
 	};
 }
 

@@ -14,7 +14,10 @@
 		class:show={$snackBar}
 		class="snackbar"
 	>
-		<div class="message"><span class="{$snackBar?.color=='danger'?'bg-red-400':''}">{$snackBar?.message}</span> <button class='active:scale-75' on:click={snackBar.close}><XIcon size='1x'/></button></div>
+		<div class="message">
+			<span class={$snackBar?.color == 'danger' ? 'bg-red-400' : ''}>{$snackBar?.message}</span>
+			<button class="active:scale-75" on:click={snackBar.close}><XIcon size="1x" /></button>
+		</div>
 	</div>
 {/key}
 

@@ -21,12 +21,11 @@ export const makeApi = () => {
 		},
 		setPushoverApp(app, update) {
 			const api = this;
-			let message = 'Nothing changed in your pushover.def'
+			let message = 'Nothing changed in your pushover.def';
 			// log.red(JSON.stringify(app));
 			const pushover = api.getPushOverApps();
-			log.red(pushover)
-			log.gray({app,update})
-			 if (update) {
+
+			if (update) {
 				pushover.app.map((a) => {
 					if (a.id === update.app.id) {
 						a.id = app.id;
@@ -35,7 +34,7 @@ export const makeApi = () => {
 							message = `✨ Updated Pushover App name from ${update.app.id} to ${app.id}`;
 						else
 							message = `✨ Updated Pushover App (${app.id}) token/key from ${update.app.token} to ${app.token}`;
-						api.notify(message)
+						api.notify(message);
 					}
 					return a;
 				});
@@ -57,5 +56,5 @@ export const makeApi = () => {
 	};
 };
 // 10 cola-nuts
-// 5 
+// 5
 // 12 cola-nuts

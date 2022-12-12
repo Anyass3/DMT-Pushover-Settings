@@ -1,8 +1,7 @@
-
 function handleEvents({ channel, api }) {
 	const timeoutId = setInterval(() => {
 		channel.signal('pushover', api.getPushOverApps());
-	}, 5000)
+	}, 5000);
 
 	channel.on('set-pushover-app', ({ app, update }) => {
 		try {
@@ -15,7 +14,7 @@ function handleEvents({ channel, api }) {
 	});
 
 	channel.on('disconnect', () => {
-		clearInterval(timeoutId)
+		clearInterval(timeoutId);
 		// api.notify('events disconnected');
 	});
 }

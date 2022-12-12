@@ -8,13 +8,12 @@ const config = {
 	// for more information about preprocessors
 	preprocess: vitePreprocess(),
 
-
 	kit: {
 		alias: {
 			$store: resolve('src/store'),
 			icons: resolve('node_modules/svelte-feather-icons/src/icons'),
 			$icons: resolve('src/icons'),
-			$smui:resolve('node_modules/@smui')
+			$smui: resolve('node_modules/@smui')
 		},
 		adapter: adapter()
 	}
